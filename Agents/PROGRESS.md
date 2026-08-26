@@ -1,8 +1,8 @@
 # PROGRESS.md - Project Progress Tracker
 
-> Updated: ___/___/______
+> Updated: 26/08/2026
 
-## Overall Status: NOT STARTED
+## Overall Status: IN PROGRESS - Phase 1 Complete
 
 ---
 
@@ -10,13 +10,13 @@
 
 | Task | Status | Notes |
 |------|--------|-------|
-| Install Docker Desktop | ⬜ Not Started | |
-| Create docker-compose.yml | ⬜ Not Started | |
-| Create docker/Dockerfile | ⬜ Not Started | |
-| Create docker/nginx/default.conf | ⬜ Not Started | |
-| Create .env.docker | ⬜ Not Started | |
-| Build containers | ⬜ Not Started | |
-| Test http://localhost:8080 | ⬜ Not Started | |
+| Install Docker Desktop | ✅ Done | Docker Desktop already installed |
+| Create docker-compose.yml | ✅ Done | 3 services: app, nginx, mysql |
+| Create docker/Dockerfile | ✅ Done | PHP 8.3-FPM + Node.js 20 LTS |
+| Create docker/nginx/default.conf | ✅ Done | Reverse proxy fastcgi_pass app:9000 |
+| Create .env.docker | ✅ Done | DB station_map, user station_user |
+| Build containers | ✅ Done | ~5 min first build (intl compile) |
+| Test http://localhost:8080 | ✅ Done | Status 200, homepage 33991 bytes |
 
 ---
 
@@ -24,13 +24,16 @@
 
 | Task | Status | Notes |
 |------|--------|-------|
-| composer create-project | ⬜ Not Started | |
-| php artisan key:generate | ⬜ Not Started | |
-| php artisan storage:link | ⬜ Not Started | |
-| Install FilamentPHP | ⬜ Not Started | |
-| Install Breeze | ⬜ Not Started | |
-| Install maatwebsite/excel | ⬜ Not Started | |
-| Create public/markers/ | ⬜ Not Started | |
+| composer create-project | ✅ Done | Laravel 13.10.1 |
+| php artisan key:generate | ✅ Done | APP_KEY set |
+| php artisan storage:link | ✅ Done | |
+| Install FilamentPHP | ✅ Done | v3.3.55 + filament:install --panels |
+| Install Breeze | ✅ Done | v2.4.2 + breeze:install blade |
+| Install maatwebsite/excel | ✅ Done | v4.0.2 |
+| Create public/markers/ | ✅ Done | |
+| npm install && npm run build | ✅ Done | Vite build CSS/JS |
+| php artisan migrate | ✅ Done | 3 migration tables created |
+| Create admin user | ✅ Done | admin@gmail.com / password |
 
 ---
 
@@ -114,11 +117,11 @@
 
 | Phase | Status | Time Spent |
 |-------|--------|------------|
-| 0. Docker | ⬜ Not Started | 0 min |
-| 1. Laravel Setup | ⬜ Not Started | 0 min |
+| 0. Docker | ✅ Complete | ~15 min |
+| 1. Laravel Setup | ✅ Complete | ~45 min |
 | 2. Database | ⬜ Not Started | 0 min |
 | 3. Admin Panel | ⬜ Not Started | 0 min |
 | 4. Frontend | ⬜ Not Started | 0 min |
 | 5. Auth | ⬜ Not Started | 0 min |
 | 6. Testing | ⬜ Not Started | 0 min |
-| **TOTAL** | ⬜ Not Started | **0 min** |
+| **TOTAL** | **2/7 Phases** | **~60 min** |

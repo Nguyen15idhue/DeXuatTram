@@ -33,35 +33,46 @@
 
 ## BƯỚC 1: Khởi tạo Docker + Laravel + Thư viện
 
-**Thời gian thực tế:** _____ phút
+**Thời gian thực tế:** ~60 phút
 
 | # | Công việc | Trạng thái | Ghi chú |
 |---|-----------|------------|---------|
-| 1 | `composer create-project laravel/laravel station-map` | ✅ / ❌ | |
-| 2 | Tạo file `docker-compose.yml` | ✅ / ❌ | |
-| 3 | Tạo file `docker/Dockerfile` | ✅ / ❌ | |
-| 4 | Tạo file `docker/nginx/default.conf` | ✅ / ❌ | |
-| 5 | Tạo file `.env.docker` | ✅ / ❌ | |
-| 6 | `docker-compose up -d --build` thành công | ✅ / ❌ | |
-| 7 | `docker ps` thấy 3 containers chạy | ✅ / ❌ | |
-| 8 | Truy cập http://localhost:8080 OK | ✅ / ❌ | |
-| 9 | `docker exec -it station-app bash` vào được | ✅ / ❌ | |
-| 10 | `php artisan key:generate` | ✅ / ❌ | |
-| 11 | Cài FilamentPHP trong container | ✅ / ❌ | |
-| 12 | Cài Breeze trong container | ✅ / ❌ | |
-| 13 | Cài maatwebsite/excel trong container | ✅ / ❌ | |
-| 14 | `php artisan storage:link` | ✅ / ❌ | |
+| 1 | `composer create-project laravel/laravel station-map` | ✅ | Laravel 13.10.1 |
+| 2 | Tạo file `docker-compose.yml` | ✅ | 3 services: app, nginx, mysql |
+| 3 | Tạo file `docker/Dockerfile` | ✅ | PHP 8.3-FPM + Node.js 20 LTS |
+| 4 | Tạo file `docker/nginx/default.conf` | ✅ | Reverse proxy fastcgi_pass app:9000 |
+| 5 | Tạo file `.env.docker` | ✅ | DB station_map, user station_user |
+| 6 | `docker-compose up -d --build` thành công | ✅ | Build lần đầu ~5 phút (compile intl, c++ extensions) |
+| 7 | `docker ps` thấy 3 containers chạy | ✅ | station-app, station-nginx, station-mysql |
+| 8 | Truy cập http://localhost:8080 OK | ✅ | Status 200, homepage 33991 bytes |
+| 9 | `docker exec -it station-app bash` vào được | ✅ | |
+| 10 | `php artisan key:generate` | ✅ | APP_KEY set |
+| 11 | Cài FilamentPHP trong container | ✅ | v3.3.55 + filament:install --panels |
+| 12 | Cài Breeze trong container | ✅ | v2.4.2 + breeze:install blade |
+| 13 | Cài maatwebsite/excel trong container | ✅ | v4.0.2 |
+| 14 | `php artisan storage:link` | ✅ | |
+| 15 | `npm install && npm run build` | ✅ | Vite build CSS/JS vào public/build |
+| 16 | `php artisan migrate` | ✅ | 3 migration: users, cache, jobs |
+| 17 | Tạo admin user | ✅ | admin@gmail.com / password |
 
 **Kết quả bước 1:**
 ```
-[ ]
-
+✅ Docker: 3 containers chạy OK
+✅ Laravel 13.10.1 + PHP 8.3-FPM + Node.js 20
+✅ FilamentPHP v3.3.55 (admin panel tại /admin/login)
+✅ Breeze v2.4.2 (auth pages: /login, /register)
+✅ maatwebsite/excel v4.0.2
+✅ Vite build: public/build/manifest.json OK
+✅ Database: station_map on MySQL 8.0
+✅ Admin user: admin@gmail.com / password
+✅ All pages accessible: /, /login, /register, /admin/login
 ```
 
 **Vấn đề gặp phải:**
 ```
-- 
-
+- Laravel composer install PHP 8.3 required (initially tried PHP 8.2, failed)
+- Vite manifest missing: needed Node.js in Docker image for npm run build
+- Breeze guest layout uses @vite() directive → must build assets before pages work
 ```
 
 ---
@@ -235,7 +246,7 @@
 | Bước | Thời gian dự kiến | Thời gian thực tế | Trạng thái |
 |------|-------------------|-------------------|------------|
 | 0. Cài Docker | 15 phút | _____ phút | ✅ / ❌ |
-| 1. Docker + Laravel | 45 phút | _____ phút | ✅ / ❌ |
+| 1. Docker + Laravel | 45 phút | ~60 phút | ✅ |
 | 2. Database | 30 phút | _____ phút | ✅ / ❌ |
 | 3. Admin Panel | 1.5 giờ | _____ phút | ✅ / ❌ |
 | 4. Frontend Map + Form | 1.5 giờ | _____ phút | ✅ / ❌ |
@@ -247,9 +258,9 @@
 
 | Container | Trạng thái | Port |
 |-----------|------------|------|
-| station-app (PHP-FPM) | Chạy / Dừng | 9000 |
-| station-nginx | Chạy / Dừng | 8080 |
-| station-mysql | Chạy / Dừng | 3306 |
+| station-app (PHP-FPM) | Chạy | 9000 |
+| station-nginx | Chạy | 8080 |
+| station-mysql | Chạy | 3306 |
 
 **Nhận xét chung:**
 ```
